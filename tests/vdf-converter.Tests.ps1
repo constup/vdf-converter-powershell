@@ -1,6 +1,6 @@
 Describe 'ConvertTo-PSObject' {
     BeforeAll {
-        . "$PSScriptRoot/../src/vdf-parser.ps1"
+        . "$PSScriptRoot/../src/vdf-converter.ps1"
     }
 
     It "Should return a correct PSObject." {

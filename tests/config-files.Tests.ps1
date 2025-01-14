@@ -1,7 +1,9 @@
 Describe 'Get-LibraryFoldersVdf' {
     BeforeAll {
-        . "$PSScriptRoot/../src/registry.ps1"
-        . "$PSScriptRoot/../src/config-files.ps1"
+        $registryPath = Resolve-Path "$PSScriptRoot\..\src\registry.ps1"
+        . $registryPath
+        $configFilesPath = Resolve-Path "$PSScriptRoot\..\src\config-files.ps1"
+        . $configFilesPath
 
         Mock Find-SteamDirectory {
             return "TestDrive:\steamdir"

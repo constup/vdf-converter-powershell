@@ -1,0 +1,16 @@
+Describe 'ConvertTo-PSObject' {
+    BeforeAll {
+        . "$PSScriptRoot/../src/vdf-parser.ps1"
+    }
+
+    It "Should return a correct PSObject." {
+        $vdfContent = Get-Content -Raw "$PSScriptRoot\sample.vdf"
+        $expected = Get-Content -Raw "$PSScriptRoot\sample.json" | ConvertFrom-Json | ConvertTo-Json -Depth 100 -Compress
+
+        $result = ConvertTo-PSObject -vdfContent $vdfContent
+        $result | Should -BeOfType PSObject
+
+        $resultJson = $result | ConvertTo-Json -Depth 100 -Compress
+        $resultJson | Should -Be $expected
+    }
+}

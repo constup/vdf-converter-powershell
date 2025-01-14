@@ -1,0 +1,106 @@
+= VDF (Valve Data File) parser for PowerShell
+:toc:
+:toclevels: 5
+
+== Support this tool
+
+link:https://ko-fi.com/E1E3VQUK2[image:https://ko-fi.com/img/githubbutton_sm.svg[Ko-fi]]
+
+== Description
+
+A basic VDF (Valve Data File) parser for PowerShell. Contains functions which you can use in your own PowerShell scripts
+to parse VDF files. Outputs `PSObject`.
+
+== How to use
+
+The file link:src/vdf-parser.ps1[vdf-parser.ps1] has a function:
+
+* `ConvertTo-PSObject` - returns the contents of a VDF file as a PSObject
+
+=== Method 1: Copy a function
+
+You can simply copy the function you need from link:src/vdf-parser.ps1[vdf-parser.ps1] into your own script and use it.
+
+[NOTE]
+====
+Other utilities in this repository may depend on each other. If you want to simply copy them to your script, keep in
+mind that you'll need to resolve these dependencies. If you don't want to resolve dependencies yourself, use Method 3
+listed below.
+====
+
+=== Method 2: Copy the source file
+
+Copy the link:src/vdf-parser.ps1[vdf-parser.ps1] file and attach it to your script with:
+
+[source,powershell]
+----
+. (Join-Path $PSScriptRoot ./vdf-parser.ps1)
+----
+
+=== Method 3: Copy the entire suite
+
+To use this whole suite and all of its features, copy the link:src/[src] directory in your PowerShell project, for
+example, to `vdf-parser-powershell` directory (relative to where your script is). You can then include whichever source
+file you need with (example):
+
+[source,powershell]
+----
+. (Join-Path $PSScriptRoot ./vdf-parser-powershell/config-files.ps1)
+----
+
+=== Use
+
+You can then use it with:
+
+[source,powershell]
+----
+$vdfPSObject = ConvertTo-PSObject -vdfContent $pathToYourVdfFile
+----
+
+== Other features
+
+This repository contains other useful features. Here is the list of files and functions:
+
+* link:src/config-files.ps1[config-files.ps1] - utilities for various Steam configuration files.
+** `Get-LibraryFoldersVdf` - find and return raw contents of Steam's `libraryfolders.vdf` file, or `$null` if it's not
+found. Pass this raw contents to a parser function to get a desired data structure.
+* link:src/registry.ps1[registry.ps1] - utilities for Steam registry entries.
+** `Find-SteamDirectory` - finds and returns your Steam installation directory, or returns `$null` if not found.
+
+== Testing
+
+https://pester.dev/docs/quick-start[Pester 5.6] is used for unit tests in this project. Please note that Windows is shipped
+with much older version of Pester. For installation instructions follow the
+https://pester.dev/docs/introduction/installation[official guide].
+
+To run the whole test suite (all available tests) with code coverage, use the link:./pester.ps1[`pester.ps1`] script:
+
+[source,shell]
+----
+pwsh .\pester.ps1
+----
+
+Otherwise, you can run individual tests in terminal by following the instructions in
+https://pester.dev/docs/quick-start[Pester quick start guide].
+
+=== Testing conventions
+
+- All tests are located in the link:./tests/[tests] directory or its subdirectories.
+- All test files are following the naming convention `*.Tests.ps1`.
+- Coverage report is available at `./coverage/coverage.xml` (when you run the full test suite, of course);
+
+== External resources
+
+* https://developer.valvesoftware.com/wiki/VDF
+* https://developer.valvesoftware.com/wiki/KeyValues
+
+== Support
+
+If you like this tool or find it useful, consider buying me a nice cup of coffee. Coffee fuels open source.
+
+link:https://ko-fi.com/E1E3VQUK2[image:https://ko-fi.com/img/githubbutton_sm.svg[Ko-fi]]
+
+== License
+
+link:LICENSE[Mozilla Public License 2.0] (also available on Mozilla's website at:
+https://www.mozilla.org/en-US/MPL/2.0/[MPL 2.0])

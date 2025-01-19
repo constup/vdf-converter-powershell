@@ -1,7 +1,6 @@
 Describe 'ConvertTo-PSObject' {
     BeforeAll {
-        $vdfConverterPath = Resolve-Path "$PSScriptRoot\..\src\vdf-converter.ps1"
-        . $vdfConverterPath
+        . (Resolve-Path "$PSScriptRoot\..\src\vdf-converter.ps1")
     }
 
     It "Should return a correct PSObject." {
